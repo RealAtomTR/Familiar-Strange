@@ -1,0 +1,106 @@
+[gd_scene load_steps=6 format=3 uid="uid://bvbnb0hjsph8n"]
+
+[ext_resource type="Script" path="res://phase_1_waypoint_controller.gd" id="1_nxgol"]
+[ext_resource type="Script" path="res://test_interactable.gd" id="2_5k6n2"]
+[ext_resource type="Script" path="res://detection_feedback_overlay.gd" id="3_3a4cl"]
+[ext_resource type="Script" path="res://caught_respawn_overlay.gd" id="4_55w1r"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_q84bs"]
+size = Vector3(1.25, 1.25, 1.25)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_xx7do"]
+size = Vector3(1.25, 1.25, 1.25)
+
+[node name="Node3D" type="Node3D" unique_id=15173832]
+script = ExtResource("1_nxgol")
+camera_path = NodePath("Camera3D")
+previous_button_path = NodePath("CanvasLayer/MarginContainer/HBoxContainer/PreviousButton")
+next_button_path = NodePath("CanvasLayer/MarginContainer/HBoxContainer/NextButton")
+waypoint_paths = [NodePath("Waypoints/Waypoint0"), NodePath("Waypoints/Waypoint1"), NodePath("Waypoints/Waypoint2")]
+interact_max_distance = 20.0
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1086011400]
+position = Vector3(0, 1.6, 8)
+
+[node name="Waypoints" type="Node3D" parent="."]
+
+[node name="Waypoint0" type="Marker3D" parent="Waypoints"]
+position = Vector3(0, 1.6, 8)
+
+[node name="Waypoint1" type="Marker3D" parent="Waypoints"]
+position = Vector3(4, 1.6, 8)
+
+[node name="Waypoint2" type="Marker3D" parent="Waypoints"]
+position = Vector3(8, 1.6, 8)
+
+[node name="TestInteractable" type="StaticBody3D" parent="."]
+script = ExtResource("2_5k6n2")
+mesh_instance_path = NodePath("MeshInstance3D")
+position = Vector3(4, 1.6, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="TestInteractable"]
+mesh = SubResource("BoxMesh_q84bs")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TestInteractable"]
+shape = SubResource("BoxShape3D_xx7do")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="DetectionFeedbackOverlay" type="ColorRect" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 0.0
+offset_bottom = 0.0
+mouse_filter = 2
+script = ExtResource("3_3a4cl")
+color = Color(0.8, 0, 0, 0)
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 24.0
+offset_top = 24.0
+offset_right = -24.0
+offset_bottom = -24.0
+
+[node name="HBoxContainer" type="Control" parent="CanvasLayer/MarginContainer"]
+layout_mode = 2
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="PreviousButton" type="Button" parent="CanvasLayer/MarginContainer/HBoxContainer"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -32.0
+offset_right = 64.0
+offset_bottom = 32.0
+custom_minimum_size = Vector2(64, 64)
+text = "<"
+
+[node name="NextButton" type="Button" parent="CanvasLayer/MarginContainer/HBoxContainer"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -64.0
+offset_top = -32.0
+offset_bottom = 32.0
+custom_minimum_size = Vector2(64, 64)
+text = ">"
+
+[node name="CaughtRespawnOverlay" type="ColorRect" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 0.0
+offset_bottom = 0.0
+mouse_filter = 0
+script = ExtResource("4_55w1r")
+color = Color(0, 0, 0, 0)
