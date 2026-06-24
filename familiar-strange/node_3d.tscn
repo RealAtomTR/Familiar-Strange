@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://bvbnb0hjsph8n"]
+[gd_scene format=3 uid="uid://bvbnb0hjsph8n"]
 
-[ext_resource type="Script" path="res://phase_1_waypoint_controller.gd" id="1_nxgol"]
-[ext_resource type="Script" path="res://test_interactable.gd" id="2_5k6n2"]
-[ext_resource type="Script" path="res://detection_feedback_overlay.gd" id="3_3a4cl"]
-[ext_resource type="Script" path="res://caught_respawn_overlay.gd" id="4_55w1r"]
+[ext_resource type="Script" uid="uid://bwn1noeptfpgw" path="res://phase_1_waypoint_controller.gd" id="1_nxgol"]
+[ext_resource type="Script" uid="uid://bhv18fmp6skhu" path="res://test_interactable.gd" id="2_5k6n2"]
+[ext_resource type="Script" uid="uid://buvo6rijg0a6x" path="res://detection_feedback_overlay.gd" id="3_3a4cl"]
+[ext_resource type="Script" uid="uid://dmhj1p0grjp6l" path="res://caught_respawn_overlay.gd" id="4_55w1r"]
+[ext_resource type="Script" uid="uid://bn6o2pcpkdugc" path="res://terminal_interactable.gd" id="5_t8g5r"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_q84bs"]
 size = Vector3(1.25, 1.25, 1.25)
@@ -11,67 +12,86 @@ size = Vector3(1.25, 1.25, 1.25)
 [sub_resource type="BoxShape3D" id="BoxShape3D_xx7do"]
 size = Vector3(1.25, 1.25, 1.25)
 
+[sub_resource type="BoxMesh" id="BoxMesh_terminal"]
+size = Vector3(1.6, 1.1, 0.6)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_terminal"]
+size = Vector3(1.6, 1.1, 0.6)
+
 [node name="Node3D" type="Node3D" unique_id=15173832]
 script = ExtResource("1_nxgol")
 camera_path = NodePath("Camera3D")
 previous_button_path = NodePath("CanvasLayer/MarginContainer/HBoxContainer/PreviousButton")
 next_button_path = NodePath("CanvasLayer/MarginContainer/HBoxContainer/NextButton")
-waypoint_paths = [NodePath("Waypoints/Waypoint0"), NodePath("Waypoints/Waypoint1"), NodePath("Waypoints/Waypoint2")]
-interact_max_distance = 20.0
+waypoint_paths = Array[NodePath]([NodePath("Waypoints/Waypoint0"), NodePath("Waypoints/Waypoint1"), NodePath("Waypoints/Waypoint2")])
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=1086011400]
-position = Vector3(0, 1.6, 8)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 8)
 
-[node name="Waypoints" type="Node3D" parent="."]
+[node name="Waypoints" type="Node3D" parent="." unique_id=1101498359]
 
-[node name="Waypoint0" type="Marker3D" parent="Waypoints"]
-position = Vector3(0, 1.6, 8)
+[node name="Waypoint0" type="Marker3D" parent="Waypoints" unique_id=1753397112]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 8)
 
-[node name="Waypoint1" type="Marker3D" parent="Waypoints"]
-position = Vector3(4, 1.6, 8)
+[node name="Waypoint1" type="Marker3D" parent="Waypoints" unique_id=1236594540]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 1.6, 8)
 
-[node name="Waypoint2" type="Marker3D" parent="Waypoints"]
-position = Vector3(8, 1.6, 8)
+[node name="Waypoint2" type="Marker3D" parent="Waypoints" unique_id=19681930]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 1.6, 8)
 
-[node name="TestInteractable" type="StaticBody3D" parent="."]
+[node name="TestInteractable" type="StaticBody3D" parent="." unique_id=1502475055]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 1.6, 0)
 script = ExtResource("2_5k6n2")
 mesh_instance_path = NodePath("MeshInstance3D")
-position = Vector3(4, 1.6, 0)
+modal_blocker_path = NodePath("../CanvasLayer/TerminalMiniGamePanel")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="TestInteractable"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="TestInteractable" unique_id=146689471]
 mesh = SubResource("BoxMesh_q84bs")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="TestInteractable"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TestInteractable" unique_id=977333609]
 shape = SubResource("BoxShape3D_xx7do")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="TerminalInteractable" type="StaticBody3D" parent="." unique_id=824817303]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 1.6, 0)
+script = ExtResource("5_t8g5r")
+mesh_instance_path = NodePath("MeshInstance3D")
+panel_path = NodePath("../CanvasLayer/TerminalMiniGamePanel")
+status_label_path = NodePath("../CanvasLayer/TerminalMiniGamePanel/PanelContainer/VBoxContainer/StatusLabel")
+complete_button_path = NodePath("../CanvasLayer/TerminalMiniGamePanel/PanelContainer/VBoxContainer/ButtonRow/CompleteButton")
+close_button_path = NodePath("../CanvasLayer/TerminalMiniGamePanel/PanelContainer/VBoxContainer/ButtonRow/CloseButton")
 
-[node name="DetectionFeedbackOverlay" type="ColorRect" parent="CanvasLayer"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="TerminalInteractable" unique_id=52665986]
+mesh = SubResource("BoxMesh_terminal")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TerminalInteractable" unique_id=2058152484]
+shape = SubResource("BoxShape3D_terminal")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=2082638935]
+
+[node name="DetectionFeedbackOverlay" type="ColorRect" parent="CanvasLayer" unique_id=506478039]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = 0.0
-offset_bottom = 0.0
 mouse_filter = 2
-script = ExtResource("3_3a4cl")
 color = Color(0.8, 0, 0, 0)
+script = ExtResource("3_3a4cl")
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer"]
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer" unique_id=963435794]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+mouse_filter = 2
 offset_left = 24.0
 offset_top = 24.0
 offset_right = -24.0
 offset_bottom = -24.0
 
-[node name="HBoxContainer" type="Control" parent="CanvasLayer/MarginContainer"]
+[node name="HBoxContainer" type="Control" parent="CanvasLayer/MarginContainer" unique_id=211806266]
 layout_mode = 2
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+mouse_filter = 2
 
-[node name="PreviousButton" type="Button" parent="CanvasLayer/MarginContainer/HBoxContainer"]
+[node name="PreviousButton" type="Button" parent="CanvasLayer/MarginContainer/HBoxContainer" unique_id=1763863670]
+custom_minimum_size = Vector2(64, 64)
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
@@ -79,10 +99,11 @@ anchor_bottom = 0.5
 offset_top = -32.0
 offset_right = 64.0
 offset_bottom = 32.0
-custom_minimum_size = Vector2(64, 64)
+grow_vertical = 2
 text = "<"
 
-[node name="NextButton" type="Button" parent="CanvasLayer/MarginContainer/HBoxContainer"]
+[node name="NextButton" type="Button" parent="CanvasLayer/MarginContainer/HBoxContainer" unique_id=107172773]
+custom_minimum_size = Vector2(64, 64)
 layout_mode = 1
 anchors_preset = 6
 anchor_left = 1.0
@@ -92,15 +113,71 @@ anchor_bottom = 0.5
 offset_left = -64.0
 offset_top = -32.0
 offset_bottom = 32.0
-custom_minimum_size = Vector2(64, 64)
+grow_horizontal = 0
+grow_vertical = 2
 text = ">"
 
-[node name="CaughtRespawnOverlay" type="ColorRect" parent="CanvasLayer"]
+[node name="TerminalMiniGamePanel" type="Control" parent="CanvasLayer" unique_id=1505234876]
+visible = false
+layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = 0.0
-offset_bottom = 0.0
 mouse_filter = 0
-script = ExtResource("4_55w1r")
+
+[node name="PanelBackdrop" type="ColorRect" parent="CanvasLayer/TerminalMiniGamePanel" unique_id=1655005906]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 0
+color = Color(0.02, 0.05, 0.08, 0.9)
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/TerminalMiniGamePanel" unique_id=618399531]
+layout_mode = 0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -220.0
+offset_top = -120.0
+offset_right = 220.0
+offset_bottom = 120.0
+mouse_filter = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/TerminalMiniGamePanel/PanelContainer" unique_id=1030530940]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="TitleLabel" type="Label" parent="CanvasLayer/TerminalMiniGamePanel/PanelContainer/VBoxContainer" unique_id=1190762854]
+layout_mode = 2
+text = "TERMINAL PLACEHOLDER"
+horizontal_alignment = 1
+
+[node name="StatusLabel" type="Label" parent="CanvasLayer/TerminalMiniGamePanel/PanelContainer/VBoxContainer" unique_id=28200642]
+layout_mode = 2
+text = "Terminal placeholder active. Press Complete to finish."
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="ButtonRow" type="HBoxContainer" parent="CanvasLayer/TerminalMiniGamePanel/PanelContainer/VBoxContainer" unique_id=1494266088]
+layout_mode = 2
+theme_override_constants/separation = 12
+alignment = 1
+
+[node name="CloseButton" type="Button" parent="CanvasLayer/TerminalMiniGamePanel/PanelContainer/VBoxContainer/ButtonRow" unique_id=1116547032]
+custom_minimum_size = Vector2(120, 44)
+layout_mode = 2
+text = "Close"
+
+[node name="CompleteButton" type="Button" parent="CanvasLayer/TerminalMiniGamePanel/PanelContainer/VBoxContainer/ButtonRow" unique_id=736297691]
+custom_minimum_size = Vector2(120, 44)
+layout_mode = 2
+text = "Complete"
+
+[node name="CaughtRespawnOverlay" type="ColorRect" parent="CanvasLayer" unique_id=875299614]
+z_index = 10
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 color = Color(0, 0, 0, 0)
+script = ExtResource("4_55w1r")

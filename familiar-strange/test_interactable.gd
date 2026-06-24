@@ -10,14 +10,17 @@ const SLOW_SEARCH_NOISE: float = 0.1
 const FAST_SEARCH_NOISE: float = 0.35
 
 @export var mesh_instance_path: NodePath
+@export var modal_blocker_path: NodePath
 
 var mesh_instance: MeshInstance3D = null
+var modal_blocker: Control = null
 var search_state: SearchState = SearchState.IDLE
 var last_noise_amount: float = 0.0
 
 
 func _ready() -> void:
 	mesh_instance = get_node_or_null(mesh_instance_path) as MeshInstance3D
+	modal_blocker = get_node_or_null(modal_blocker_path) as Control
 	_apply_visual_state()
 
 
@@ -32,6 +35,9 @@ func _on_interact() -> void:
 
 func _unhandled_input(event: InputEvent) -> void:
 	if search_state != SearchState.AWAITING_CHOICE:
+		return
+
+	if modal_blocker != null and modal_blocker.visible:
 		return
 
 	if event is not InputEventKey:

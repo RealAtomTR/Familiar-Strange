@@ -11,12 +11,13 @@ config_version=5
 [application]
 
 config/name="Familiar Strange"
+run/main_scene="res://node_3d.tscn"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
-run/main_scene="res://node_3d.tscn"
 
 [autoload]
 
+GameState="*res://game_state.gd"
 PlayerState="*res://player_state.gd"
 
 [physics]
