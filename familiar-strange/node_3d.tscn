@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://bvbnb0hjsph8n"]
+[gd_scene load_steps=12 format=3 uid="uid://bvbnb0hjsph8n"]
 
 [ext_resource type="Script" uid="uid://bwn1noeptfpgw" path="res://phase_1_waypoint_controller.gd" id="1_nxgol"]
 [ext_resource type="Script" uid="uid://bhv18fmp6skhu" path="res://test_interactable.gd" id="2_5k6n2"]
@@ -7,17 +7,23 @@
 [ext_resource type="Script" uid="uid://bn6o2pcpkdugc" path="res://terminal_interactable.gd" id="5_t8g5r"]
 [ext_resource type="Script" path="res://phase_transition_overlay.gd" id="6_g7n3k"]
 
-[sub_resource type="BoxMesh" id="BoxMesh_q84bs"]
-size = Vector3(1.25, 1.25, 1.25)
+[sub_resource type="BoxMesh" id="BoxMesh_searchable_body"]
+size = Vector3(1.8, 1.1, 0.9)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_xx7do"]
-size = Vector3(1.25, 1.25, 1.25)
+[sub_resource type="BoxShape3D" id="BoxShape3D_searchable_body"]
+size = Vector3(1.8, 1.1, 0.9)
 
-[sub_resource type="BoxMesh" id="BoxMesh_terminal"]
-size = Vector3(1.6, 1.1, 0.6)
+[sub_resource type="BoxMesh" id="BoxMesh_terminal_body"]
+size = Vector3(1.6, 1.15, 0.7)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_terminal"]
-size = Vector3(1.6, 1.1, 0.6)
+[sub_resource type="BoxShape3D" id="BoxShape3D_terminal_body"]
+size = Vector3(1.6, 1.15, 0.7)
+
+[sub_resource type="BoxMesh" id="BoxMesh_terminal_screen"]
+size = Vector3(1.15, 0.65, 0.08)
+
+[sub_resource type="BoxMesh" id="BoxMesh_searchable_top"]
+size = Vector3(1.2, 0.25, 0.55)
 
 [node name="Node3D" type="Node3D" unique_id=15173832]
 script = ExtResource("1_nxgol")
@@ -40,32 +46,56 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 1.6, 8)
 [node name="Waypoint2" type="Marker3D" parent="Waypoints" unique_id=19681930]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 1.6, 8)
 
-[node name="TestInteractable" type="StaticBody3D" parent="." unique_id=1502475055]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 1.6, 0)
+[node name="SearchableInteractable" type="StaticBody3D" parent="." unique_id=1502475055]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 1.1, 0)
 script = ExtResource("2_5k6n2")
-mesh_instance_path = NodePath("MeshInstance3D")
+mesh_instance_path = NodePath("SearchableBody")
 modal_blocker_path = NodePath("../CanvasLayer/TerminalMiniGamePanel")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="TestInteractable" unique_id=146689471]
-mesh = SubResource("BoxMesh_q84bs")
+[node name="SearchableBody" type="MeshInstance3D" parent="SearchableInteractable" unique_id=146689471]
+mesh = SubResource("BoxMesh_searchable_body")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="TestInteractable" unique_id=977333609]
-shape = SubResource("BoxShape3D_xx7do")
+[node name="SearchableTop" type="MeshInstance3D" parent="SearchableInteractable"]
+transform = Transform3D(0.939373, 0, -0.342898, 0, 1, 0, 0.342898, 0, 0.939373, 0.15, 0.5, 0.05)
+mesh = SubResource("BoxMesh_searchable_top")
+
+[node name="SearchableLabel" type="Label3D" parent="SearchableInteractable"]
+transform = Transform3D(1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, 0, 1.35, 0.65)
+modulate = Color(0.72, 0.72, 0.72, 1)
+text = "SEARCH"
+billboard = 1
+font_size = 64
+outline_size = 16
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SearchableInteractable" unique_id=977333609]
+shape = SubResource("BoxShape3D_searchable_body")
 
 [node name="TerminalInteractable" type="StaticBody3D" parent="." unique_id=824817303]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 1.6, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 1.2, 0)
 script = ExtResource("5_t8g5r")
-mesh_instance_path = NodePath("MeshInstance3D")
+mesh_instance_path = NodePath("TerminalBody")
 panel_path = NodePath("../CanvasLayer/TerminalMiniGamePanel")
 status_label_path = NodePath("../CanvasLayer/TerminalMiniGamePanel/PanelContainer/VBoxContainer/StatusLabel")
 complete_button_path = NodePath("../CanvasLayer/TerminalMiniGamePanel/PanelContainer/VBoxContainer/ButtonRow/CompleteButton")
 close_button_path = NodePath("../CanvasLayer/TerminalMiniGamePanel/PanelContainer/VBoxContainer/ButtonRow/CloseButton")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="TerminalInteractable" unique_id=52665986]
-mesh = SubResource("BoxMesh_terminal")
+[node name="TerminalBody" type="MeshInstance3D" parent="TerminalInteractable" unique_id=52665986]
+mesh = SubResource("BoxMesh_terminal_body")
+
+[node name="TerminalScreen" type="MeshInstance3D" parent="TerminalInteractable"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, -0.39)
+mesh = SubResource("BoxMesh_terminal_screen")
+
+[node name="TerminalLabel" type="Label3D" parent="TerminalInteractable"]
+transform = Transform3D(1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, 0, 1.4, 0.55)
+modulate = Color(0.4, 0.78, 0.95, 1)
+text = "TERMINAL"
+billboard = 1
+font_size = 56
+outline_size = 14
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="TerminalInteractable" unique_id=2058152484]
-shape = SubResource("BoxShape3D_terminal")
+shape = SubResource("BoxShape3D_terminal_body")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=2082638935]
 
