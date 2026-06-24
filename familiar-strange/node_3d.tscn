@@ -1,10 +1,11 @@
-[gd_scene format=3 uid="uid://bvbnb0hjsph8n"]
+[gd_scene load_steps=10 format=3 uid="uid://bvbnb0hjsph8n"]
 
 [ext_resource type="Script" uid="uid://bwn1noeptfpgw" path="res://phase_1_waypoint_controller.gd" id="1_nxgol"]
 [ext_resource type="Script" uid="uid://bhv18fmp6skhu" path="res://test_interactable.gd" id="2_5k6n2"]
 [ext_resource type="Script" uid="uid://buvo6rijg0a6x" path="res://detection_feedback_overlay.gd" id="3_3a4cl"]
 [ext_resource type="Script" uid="uid://dmhj1p0grjp6l" path="res://caught_respawn_overlay.gd" id="4_55w1r"]
 [ext_resource type="Script" uid="uid://bn6o2pcpkdugc" path="res://terminal_interactable.gd" id="5_t8g5r"]
+[ext_resource type="Script" path="res://phase_transition_overlay.gd" id="6_g7n3k"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_q84bs"]
 size = Vector3(1.25, 1.25, 1.25)
@@ -173,6 +174,15 @@ text = "Close"
 custom_minimum_size = Vector2(120, 44)
 layout_mode = 2
 text = "Complete"
+
+[node name="PhaseTransitionOverlay" type="ColorRect" parent="CanvasLayer"]
+z_index = 9
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 0
+color = Color(0, 0, 0, 0)
+script = ExtResource("6_g7n3k")
 
 [node name="CaughtRespawnOverlay" type="ColorRect" parent="CanvasLayer" unique_id=875299614]
 z_index = 10

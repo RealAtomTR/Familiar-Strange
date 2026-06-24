@@ -53,4 +53,7 @@ func reset_phase_1_progress() -> void:
 
 
 func _on_phase_1_completion_target_reached() -> void:
-	push_warning("GameState: phase 1 terminal completion target reached. Transition placeholder ready.")
+	if current_state != GAME_STATE.PHASE_1_2D:
+		return
+
+	change_state(GAME_STATE.PHASE_TRANSITION)
