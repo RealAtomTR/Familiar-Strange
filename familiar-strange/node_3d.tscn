@@ -1,14 +1,17 @@
-[gd_scene load_steps=12 format=3 uid="uid://bvbnb0hjsph8n"]
+[gd_scene format=3 uid="uid://bvbnb0hjsph8n"]
 
 [ext_resource type="Script" uid="uid://bwn1noeptfpgw" path="res://phase_1_waypoint_controller.gd" id="1_nxgol"]
 [ext_resource type="Script" uid="uid://bhv18fmp6skhu" path="res://test_interactable.gd" id="2_5k6n2"]
 [ext_resource type="Script" uid="uid://buvo6rijg0a6x" path="res://detection_feedback_overlay.gd" id="3_3a4cl"]
 [ext_resource type="Script" uid="uid://dmhj1p0grjp6l" path="res://caught_respawn_overlay.gd" id="4_55w1r"]
 [ext_resource type="Script" uid="uid://bn6o2pcpkdugc" path="res://terminal_interactable.gd" id="5_t8g5r"]
-[ext_resource type="Script" path="res://phase_transition_overlay.gd" id="6_g7n3k"]
+[ext_resource type="Script" uid="uid://brrc32ngwcohm" path="res://phase_transition_overlay.gd" id="6_g7n3k"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_searchable_body"]
 size = Vector3(1.8, 1.1, 0.9)
+
+[sub_resource type="BoxMesh" id="BoxMesh_searchable_top"]
+size = Vector3(1.2, 0.25, 0.55)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_searchable_body"]
 size = Vector3(1.8, 1.1, 0.9)
@@ -16,14 +19,11 @@ size = Vector3(1.8, 1.1, 0.9)
 [sub_resource type="BoxMesh" id="BoxMesh_terminal_body"]
 size = Vector3(1.6, 1.15, 0.7)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_terminal_body"]
-size = Vector3(1.6, 1.15, 0.7)
-
 [sub_resource type="BoxMesh" id="BoxMesh_terminal_screen"]
 size = Vector3(1.15, 0.65, 0.08)
 
-[sub_resource type="BoxMesh" id="BoxMesh_searchable_top"]
-size = Vector3(1.2, 0.25, 0.55)
+[sub_resource type="BoxShape3D" id="BoxShape3D_terminal_body"]
+size = Vector3(1.6, 1.15, 0.7)
 
 [node name="Node3D" type="Node3D" unique_id=15173832]
 script = ExtResource("1_nxgol")
@@ -55,19 +55,20 @@ modal_blocker_path = NodePath("../CanvasLayer/TerminalMiniGamePanel")
 [node name="SearchableBody" type="MeshInstance3D" parent="SearchableInteractable" unique_id=146689471]
 mesh = SubResource("BoxMesh_searchable_body")
 
-[node name="SearchableTop" type="MeshInstance3D" parent="SearchableInteractable"]
+[node name="SearchableTop" type="MeshInstance3D" parent="SearchableInteractable" unique_id=1708235665]
 transform = Transform3D(0.939373, 0, -0.342898, 0, 1, 0, 0.342898, 0, 0.939373, 0.15, 0.5, 0.05)
 mesh = SubResource("BoxMesh_searchable_top")
 
-[node name="SearchableLabel" type="Label3D" parent="SearchableInteractable"]
+[node name="SearchableLabel" type="Label3D" parent="SearchableInteractable" unique_id=1377688663]
 transform = Transform3D(1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, 0, 1.35, 0.65)
+billboard = 1
 modulate = Color(0.72, 0.72, 0.72, 1)
 text = "SEARCH"
-billboard = 1
 font_size = 64
 outline_size = 16
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="SearchableInteractable" unique_id=977333609]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0018167496, 0.0138094425, 0)
 shape = SubResource("BoxShape3D_searchable_body")
 
 [node name="TerminalInteractable" type="StaticBody3D" parent="." unique_id=824817303]
@@ -82,15 +83,15 @@ close_button_path = NodePath("../CanvasLayer/TerminalMiniGamePanel/PanelContaine
 [node name="TerminalBody" type="MeshInstance3D" parent="TerminalInteractable" unique_id=52665986]
 mesh = SubResource("BoxMesh_terminal_body")
 
-[node name="TerminalScreen" type="MeshInstance3D" parent="TerminalInteractable"]
+[node name="TerminalScreen" type="MeshInstance3D" parent="TerminalInteractable" unique_id=236467980]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, -0.39)
 mesh = SubResource("BoxMesh_terminal_screen")
 
-[node name="TerminalLabel" type="Label3D" parent="TerminalInteractable"]
+[node name="TerminalLabel" type="Label3D" parent="TerminalInteractable" unique_id=2096983957]
 transform = Transform3D(1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, 0, 1.4, 0.55)
+billboard = 1
 modulate = Color(0.4, 0.78, 0.95, 1)
 text = "TERMINAL"
-billboard = 1
 font_size = 56
 outline_size = 14
 
@@ -111,11 +112,11 @@ script = ExtResource("3_3a4cl")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-mouse_filter = 2
 offset_left = 24.0
 offset_top = 24.0
 offset_right = -24.0
 offset_bottom = -24.0
+mouse_filter = 2
 
 [node name="HBoxContainer" type="Control" parent="CanvasLayer/MarginContainer" unique_id=211806266]
 layout_mode = 2
@@ -154,6 +155,8 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 mouse_filter = 0
 
 [node name="PanelBackdrop" type="ColorRect" parent="CanvasLayer/TerminalMiniGamePanel" unique_id=1655005906]
@@ -205,12 +208,11 @@ custom_minimum_size = Vector2(120, 44)
 layout_mode = 2
 text = "Complete"
 
-[node name="PhaseTransitionOverlay" type="ColorRect" parent="CanvasLayer"]
+[node name="PhaseTransitionOverlay" type="ColorRect" parent="CanvasLayer" unique_id=1921218770]
 z_index = 9
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-mouse_filter = 0
 color = Color(0, 0, 0, 0)
 script = ExtResource("6_g7n3k")
 

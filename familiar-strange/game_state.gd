@@ -27,7 +27,6 @@ func change_state(new_state: GAME_STATE) -> void:
 	current_state = new_state
 	state_changed.emit(previous_state, current_state)
 
-
 func register_terminal_completion(terminal_id: StringName) -> bool:
 	if terminal_id.is_empty():
 		push_warning("GameState: terminal_id is empty.")
