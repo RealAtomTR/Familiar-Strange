@@ -9,6 +9,8 @@ signal terminal_completed()
 @export var close_button_path: NodePath
 @export var terminal_id: StringName
 
+static var active_terminal: Node = null
+
 var mesh_instance: MeshInstance3D = null
 var panel: Control = null
 var status_label: Label = null
@@ -38,6 +40,9 @@ func _ready() -> void:
 
 
 func _on_interact() -> void:
+	if is_completed:
+		return
+
 	if panel == null:
 		push_warning("TerminalInteractable: panel reference is missing.")
 		return
@@ -49,6 +54,7 @@ func _open_panel() -> void:
 	if panel == null:
 		return
 
+	active_terminal = self
 	panel.visible = true
 	if status_label != null:
 		if is_completed:
@@ -63,9 +69,14 @@ func _open_panel() -> void:
 func _close_panel() -> void:
 	if panel != null:
 		panel.visible = false
+	if active_terminal == self:
+		active_terminal = null
 
 
 func _on_complete_button_pressed() -> void:
+	if active_terminal != self:
+		return
+
 	if is_completed:
 		return
 
@@ -80,6 +91,9 @@ func _on_complete_button_pressed() -> void:
 
 
 func _on_close_button_pressed() -> void:
+	if active_terminal != self:
+		return
+
 	_close_panel()
 
 

@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://bvbnb0hjsph8n"]
+[gd_scene load_steps=36 format=3 uid="uid://bvbnb0hjsph8n"]
 
 [ext_resource type="Script" uid="uid://bwn1noeptfpgw" path="res://phase_1_waypoint_controller.gd" id="1_nxgol"]
 [ext_resource type="Script" uid="uid://bhv18fmp6skhu" path="res://test_interactable.gd" id="2_5k6n2"]
@@ -8,22 +8,124 @@
 [ext_resource type="Script" uid="uid://brrc32ngwcohm" path="res://phase_transition_overlay.gd" id="6_g7n3k"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_searchable_body"]
-size = Vector3(1.8, 1.1, 0.9)
+size = Vector3(1.1, 0.45, 0.7)
 
 [sub_resource type="BoxMesh" id="BoxMesh_searchable_top"]
-size = Vector3(1.2, 0.25, 0.55)
+size = Vector3(0.9, 0.12, 0.45)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_searchable_body"]
-size = Vector3(1.8, 1.1, 0.9)
+size = Vector3(1.1, 0.45, 0.7)
 
 [sub_resource type="BoxMesh" id="BoxMesh_terminal_body"]
-size = Vector3(1.6, 1.15, 0.7)
+size = Vector3(1.35, 0.8, 0.5)
 
 [sub_resource type="BoxMesh" id="BoxMesh_terminal_screen"]
-size = Vector3(1.15, 0.65, 0.08)
+size = Vector3(0.95, 0.52, 0.06)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_terminal_body"]
-size = Vector3(1.6, 1.15, 0.7)
+size = Vector3(1.35, 0.8, 0.5)
+
+[sub_resource type="BoxMesh" id="BoxMesh_unit"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_indicator"]
+size = Vector3(0.08, 0.38, 0.04)
+
+[sub_resource type="StandardMaterial3D" id="Material_floor"]
+albedo_color = Color(0.06, 0.065, 0.072, 1)
+roughness = 0.96
+
+[sub_resource type="StandardMaterial3D" id="Material_wall"]
+albedo_color = Color(0.11, 0.115, 0.125, 1)
+roughness = 0.94
+
+[sub_resource type="StandardMaterial3D" id="Material_desk"]
+albedo_color = Color(0.24, 0.22, 0.2, 1)
+roughness = 0.82
+
+[sub_resource type="StandardMaterial3D" id="Material_server"]
+albedo_color = Color(0.09, 0.11, 0.15, 1)
+roughness = 0.7
+metallic = 0.26
+
+[sub_resource type="StandardMaterial3D" id="Material_server_indicator"]
+albedo_color = Color(0.22, 0.46, 0.9, 1)
+emission_enabled = true
+emission = Color(0.16, 0.33, 0.72, 1)
+roughness = 0.25
+
+[sub_resource type="StandardMaterial3D" id="Material_door"]
+albedo_color = Color(0.18, 0.08, 0.08, 1)
+roughness = 0.82
+
+[sub_resource type="StandardMaterial3D" id="Material_terminal_stand"]
+albedo_color = Color(0.09, 0.15, 0.17, 1)
+roughness = 0.72
+metallic = 0.2
+
+[sub_resource type="StandardMaterial3D" id="Material_terminal_screen"]
+albedo_color = Color(0.16, 0.54, 0.64, 1)
+emission_enabled = true
+emission = Color(0.14, 0.44, 0.54, 1)
+roughness = 0.18
+
+[sub_resource type="StandardMaterial3D" id="Material_search_top"]
+albedo_color = Color(0.34, 0.3, 0.27, 1)
+roughness = 0.9
+
+[sub_resource type="BoxMesh" id="BoxMesh_terminal_bezel"]
+size = Vector3(1.08, 0.64, 0.08)
+
+[sub_resource type="BoxMesh" id="BoxMesh_terminal_hood"]
+size = Vector3(1.0, 0.12, 0.34)
+
+[sub_resource type="BoxMesh" id="BoxMesh_terminal_base"]
+size = Vector3(1.1, 0.18, 0.42)
+
+[sub_resource type="BoxMesh" id="BoxMesh_terminal_plinth"]
+size = Vector3(0.52, 0.34, 0.28)
+
+[sub_resource type="BoxMesh" id="BoxMesh_terminal_keypad"]
+size = Vector3(0.34, 0.12, 0.18)
+
+[sub_resource type="StandardMaterial3D" id="Material_terminal_body_dark"]
+albedo_color = Color(0.1, 0.12, 0.14, 1)
+roughness = 0.68
+metallic = 0.34
+
+[sub_resource type="StandardMaterial3D" id="Material_terminal_trim"]
+albedo_color = Color(0.18, 0.24, 0.28, 1)
+roughness = 0.4
+metallic = 0.3
+
+[sub_resource type="StandardMaterial3D" id="Material_terminal_indicator"]
+albedo_color = Color(0.2, 0.86, 0.98, 1)
+emission_enabled = true
+emission = Color(0.16, 0.72, 0.82, 1)
+roughness = 0.16
+
+[sub_resource type="BoxMesh" id="BoxMesh_search_drawer"]
+size = Vector3(0.42, 0.24, 0.46)
+
+[sub_resource type="BoxMesh" id="BoxMesh_search_handle"]
+size = Vector3(0.18, 0.04, 0.04)
+
+[sub_resource type="BoxMesh" id="BoxMesh_search_folder"]
+size = Vector3(0.42, 0.05, 0.3)
+
+[sub_resource type="BoxMesh" id="BoxMesh_search_side_panel"]
+size = Vector3(0.08, 0.52, 0.66)
+
+[sub_resource type="StandardMaterial3D" id="Material_search_body_dark"]
+albedo_color = Color(0.2, 0.08, 0.08, 1)
+roughness = 0.88
+
+[sub_resource type="StandardMaterial3D" id="Material_search_trim"]
+albedo_color = Color(0.28, 0.24, 0.22, 1)
+roughness = 0.9
+
+[sub_resource type="StandardMaterial3D" id="Material_search_folder"]
+albedo_color = Color(0.62, 0.56, 0.34, 1)
+roughness = 0.94
 
 [node name="Node3D" type="Node3D" unique_id=15173832]
 script = ExtResource("1_nxgol")
@@ -31,6 +133,11 @@ camera_path = NodePath("Camera3D")
 previous_button_path = NodePath("CanvasLayer/MarginContainer/HBoxContainer/PreviousButton")
 next_button_path = NodePath("CanvasLayer/MarginContainer/HBoxContainer/NextButton")
 waypoint_paths = Array[NodePath]([NodePath("Waypoints/Waypoint0"), NodePath("Waypoints/Waypoint1"), NodePath("Waypoints/Waypoint2")])
+terminal_panel_path = NodePath("CanvasLayer/TerminalMiniGamePanel")
+limited_look_enabled = true
+limited_look_yaw_degrees = 10.0
+limited_look_pitch_degrees = 4.0
+limited_look_sensitivity = 0.08
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=1086011400]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 8)
@@ -46,56 +153,453 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 1.6, 8)
 [node name="Waypoint2" type="Marker3D" parent="Waypoints" unique_id=19681930]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 1.6, 8)
 
+[node name="EnvironmentGreybox" type="Node3D" parent="."]
+
+[node name="Floor" type="MeshInstance3D" parent="EnvironmentGreybox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, -0.15, -1)
+mesh = SubResource("BoxMesh_unit")
+material_override = SubResource("Material_floor")
+scale = Vector3(12, 0.15, 10)
+
+[node name="BackWall" type="MeshInstance3D" parent="EnvironmentGreybox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 2.6, -9)
+mesh = SubResource("BoxMesh_unit")
+material_override = SubResource("Material_wall")
+scale = Vector3(12, 2.8, 0.2)
+
+[node name="LeftWall" type="MeshInstance3D" parent="EnvironmentGreybox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.8, 2.6, -1)
+mesh = SubResource("BoxMesh_unit")
+material_override = SubResource("Material_wall")
+scale = Vector3(0.2, 2.8, 8)
+
+[node name="RightWall" type="MeshInstance3D" parent="EnvironmentGreybox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.8, 2.6, -1)
+mesh = SubResource("BoxMesh_unit")
+material_override = SubResource("Material_wall")
+scale = Vector3(0.2, 2.8, 8)
+
+[node name="CeilingBeam" type="MeshInstance3D" parent="EnvironmentGreybox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 5.1, -2)
+mesh = SubResource("BoxMesh_unit")
+material_override = SubResource("Material_wall")
+scale = Vector3(12, 0.18, 7)
+
+[node name="SearchDesk" type="MeshInstance3D" parent="EnvironmentGreybox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.1, 0.55, 0.2)
+mesh = SubResource("BoxMesh_unit")
+material_override = SubResource("Material_desk")
+scale = Vector3(1.7, 0.55, 1.0)
+
+[node name="SearchDeskBack" type="MeshInstance3D" parent="EnvironmentGreybox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.1, 1.15, -0.45)
+mesh = SubResource("BoxMesh_unit")
+material_override = SubResource("Material_desk")
+scale = Vector3(1.55, 0.18, 0.35)
+
+[node name="SearchDeskSideLeft" type="MeshInstance3D" parent="EnvironmentGreybox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.12, 0.55, 0.2)
+mesh = SubResource("BoxMesh_search_side_panel")
+material_override = SubResource("Material_desk")
+
+[node name="SearchDeskDrawerLower" type="MeshInstance3D" parent="EnvironmentGreybox"]
+transform = Transform3D(1, 0, 0, 0, 0.999391, 0.0348995, 0, -0.0348995, 0.999391, 3.14, 0.36, 0.34)
+mesh = SubResource("BoxMesh_search_drawer")
+material_override = SubResource("Material_search_trim")
+
+[node name="SearchDeskDrawerUpper" type="MeshInstance3D" parent="EnvironmentGreybox"]
+transform = Transform3D(1, 0, 0, 0, 0.999391, 0.0348995, 0, -0.0348995, 0.999391, 3.14, 0.64, 0.34)
+mesh = SubResource("BoxMesh_search_drawer")
+material_override = SubResource("Material_search_trim")
+
+[node name="SearchDeskHandleLower" type="MeshInstance3D" parent="EnvironmentGreybox"]
+transform = Transform3D(1, 0, 0, 0, 0.999391, 0.0348995, 0, -0.0348995, 0.999391, 3.14, 0.36, 0.58)
+mesh = SubResource("BoxMesh_search_handle")
+material_override = SubResource("Material_search_folder")
+
+[node name="SearchDeskHandleUpper" type="MeshInstance3D" parent="EnvironmentGreybox"]
+transform = Transform3D(1, 0, 0, 0, 0.999391, 0.0348995, 0, -0.0348995, 0.999391, 3.14, 0.64, 0.58)
+mesh = SubResource("BoxMesh_search_handle")
+material_override = SubResource("Material_search_folder")
+
+[node name="ServerRackA" type="MeshInstance3D" parent="EnvironmentGreybox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8, 1.75, -3.1)
+mesh = SubResource("BoxMesh_unit")
+material_override = SubResource("Material_server")
+scale = Vector3(0.75, 1.75, 0.65)
+
+[node name="ServerRackAIndicator" type="MeshInstance3D" parent="EnvironmentGreybox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.36, 2.05, -2.42)
+mesh = SubResource("BoxMesh_indicator")
+material_override = SubResource("Material_server_indicator")
+
+[node name="ServerRackB" type="MeshInstance3D" parent="EnvironmentGreybox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.45, 1.75, -3.4)
+mesh = SubResource("BoxMesh_unit")
+material_override = SubResource("Material_server")
+scale = Vector3(0.75, 1.75, 0.65)
+
+[node name="ServerRackBIndicator" type="MeshInstance3D" parent="EnvironmentGreybox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.03, 2.18, -2.72)
+mesh = SubResource("BoxMesh_indicator")
+material_override = SubResource("Material_server_indicator")
+
+[node name="ServerRackC" type="MeshInstance3D" parent="EnvironmentGreybox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1.75, -3.1)
+mesh = SubResource("BoxMesh_unit")
+material_override = SubResource("Material_server")
+scale = Vector3(0.75, 1.75, 0.65)
+
+[node name="ServerRackCIndicator" type="MeshInstance3D" parent="EnvironmentGreybox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.43, 1.95, -2.42)
+mesh = SubResource("BoxMesh_indicator")
+material_override = SubResource("Material_server_indicator")
+
+[node name="TerminalStandLeft" type="MeshInstance3D" parent="EnvironmentGreybox"]
+transform = Transform3D(0.990268, 0, 0.139173, 0, 1, 0, -0.139173, 0, 0.990268, -1.2, 0.7, -0.35)
+mesh = SubResource("BoxMesh_unit")
+material_override = SubResource("Material_terminal_stand")
+scale = Vector3(1.35, 0.65, 0.95)
+
+[node name="TerminalRearPanelLeft" type="MeshInstance3D" parent="EnvironmentGreybox"]
+transform = Transform3D(0.990268, 0, 0.139173, 0, 1, 0, -0.139173, 0, 0.990268, -1.2, 1.75, -0.95)
+mesh = SubResource("BoxMesh_unit")
+material_override = SubResource("Material_terminal_stand")
+scale = Vector3(1.2, 0.9, 0.18)
+
+[node name="TerminalStandCenter" type="MeshInstance3D" parent="EnvironmentGreybox"]
+transform = Transform3D(0.994522, 0, -0.104528, 0, 1, 0, 0.104528, 0, 0.994522, 5.85, 0.7, -2.1)
+mesh = SubResource("BoxMesh_unit")
+material_override = SubResource("Material_terminal_stand")
+scale = Vector3(1.35, 0.65, 0.95)
+
+[node name="TerminalRearPanelCenter" type="MeshInstance3D" parent="EnvironmentGreybox"]
+transform = Transform3D(0.994522, 0, -0.104528, 0, 1, 0, 0.104528, 0, 0.994522, 5.85, 1.75, -2.72)
+mesh = SubResource("BoxMesh_unit")
+material_override = SubResource("Material_terminal_stand")
+scale = Vector3(1.2, 0.9, 0.18)
+
+[node name="TerminalStandRight" type="MeshInstance3D" parent="EnvironmentGreybox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0.7, 0.2)
+mesh = SubResource("BoxMesh_unit")
+material_override = SubResource("Material_terminal_stand")
+scale = Vector3(1.6, 0.7, 1.0)
+
+[node name="TerminalRearPanelRight" type="MeshInstance3D" parent="EnvironmentGreybox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 1.8, -0.55)
+mesh = SubResource("BoxMesh_unit")
+material_override = SubResource("Material_terminal_stand")
+scale = Vector3(1.45, 1.0, 0.2)
+
+[node name="DoorFrameLeft" type="MeshInstance3D" parent="EnvironmentGreybox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.4, 2.1, -7.8)
+mesh = SubResource("BoxMesh_unit")
+material_override = SubResource("Material_door")
+scale = Vector3(0.2, 2.1, 0.35)
+
+[node name="DoorFrameRight" type="MeshInstance3D" parent="EnvironmentGreybox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.4, 2.1, -7.8)
+mesh = SubResource("BoxMesh_unit")
+material_override = SubResource("Material_door")
+scale = Vector3(0.2, 2.1, 0.35)
+
+[node name="DoorLintel" type="MeshInstance3D" parent="EnvironmentGreybox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.4, 3.95, -7.8)
+mesh = SubResource("BoxMesh_unit")
+material_override = SubResource("Material_door")
+scale = Vector3(1.2, 0.2, 0.35)
+
+[node name="DoorPanel" type="MeshInstance3D" parent="EnvironmentGreybox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.4, 1.8, -8.05)
+mesh = SubResource("BoxMesh_unit")
+material_override = SubResource("Material_door")
+scale = Vector3(0.95, 1.8, 0.1)
+
+[node name="KeyLight" type="DirectionalLight3D" parent="EnvironmentGreybox"]
+transform = Transform3D(0.88914, -0.257834, 0.378522, 0, 0.826126, 0.563488, -0.457633, -0.500983, 0.734472, 0, 4.6, 2.2)
+light_color = Color(0.69, 0.75, 0.84, 1)
+light_energy = 0.88
+shadow_enabled = true
+
+[node name="SearchWarmFill" type="OmniLight3D" parent="EnvironmentGreybox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.25, 2.55, 1.35)
+light_color = Color(0.88, 0.74, 0.56, 1)
+light_energy = 1.25
+omni_range = 6.4
+
+[node name="ServerLight" type="OmniLight3D" parent="EnvironmentGreybox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.2, 3.4, -2.8)
+light_color = Color(0.16, 0.3, 0.58, 1)
+light_energy = 1.12
+omni_range = 8.6
+
+[node name="TerminalGlowLeft" type="OmniLight3D" parent="EnvironmentGreybox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.1, 2.2, -0.55)
+light_color = Color(0.18, 0.72, 0.82, 1)
+light_energy = 0.98
+omni_range = 5.6
+
+[node name="TerminalGlowCenter" type="OmniLight3D" parent="EnvironmentGreybox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.9, 2.2, -2.35)
+light_color = Color(0.18, 0.72, 0.82, 1)
+light_energy = 1.08
+omni_range = 5.8
+
+[node name="TerminalGlowRight" type="OmniLight3D" parent="EnvironmentGreybox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 2.15, -0.12)
+light_color = Color(0.18, 0.72, 0.82, 1)
+light_energy = 1.38
+omni_range = 7.0
+
+[node name="DoorRim" type="OmniLight3D" parent="EnvironmentGreybox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.4, 3.2, -7.3)
+light_color = Color(0.45, 0.16, 0.14, 1)
+light_energy = 0.64
+omni_range = 4.2
+
 [node name="SearchableInteractable" type="StaticBody3D" parent="." unique_id=1502475055]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 1.1, 0)
+transform = Transform3D(0.978148, 0, -0.207912, 0, 1, 0, 0.207912, 0, 0.978148, 4.05, 1.12, 0.1)
 script = ExtResource("2_5k6n2")
 mesh_instance_path = NodePath("SearchableBody")
 modal_blocker_path = NodePath("../CanvasLayer/TerminalMiniGamePanel")
 
 [node name="SearchableBody" type="MeshInstance3D" parent="SearchableInteractable" unique_id=146689471]
+transform = Transform3D(1, 0, 0, 0, 0.984808, -0.173648, 0, 0.173648, 0.984808, 0, -0.02, 0)
 mesh = SubResource("BoxMesh_searchable_body")
+material_override = SubResource("Material_search_body_dark")
+
+[node name="SearchableFrontLip" type="MeshInstance3D" parent="SearchableInteractable"]
+transform = Transform3D(1.02, 0, 0, 0, 0.82, -0.1, 0, 0.1, 0.82, 0, -0.12, 0.32)
+mesh = SubResource("BoxMesh_search_drawer")
+material_override = SubResource("Material_search_trim")
 
 [node name="SearchableTop" type="MeshInstance3D" parent="SearchableInteractable" unique_id=1708235665]
-transform = Transform3D(0.939373, 0, -0.342898, 0, 1, 0, 0.342898, 0, 0.939373, 0.15, 0.5, 0.05)
+transform = Transform3D(0.939373, 0, -0.342898, 0, 1, 0, 0.342898, 0, 0.939373, 0.05, 0.22, 0.02)
 mesh = SubResource("BoxMesh_searchable_top")
+material_override = SubResource("Material_search_top")
+
+[node name="SearchableFolderA" type="MeshInstance3D" parent="SearchableInteractable"]
+transform = Transform3D(0.984808, 0, -0.173648, 0, 1, 0, 0.173648, 0, 0.984808, -0.16, 0.28, -0.02)
+mesh = SubResource("BoxMesh_search_folder")
+material_override = SubResource("Material_search_folder")
+
+[node name="SearchableFolderB" type="MeshInstance3D" parent="SearchableInteractable"]
+transform = Transform3D(0.996195, 0, 0.0871557, 0, 1, 0, -0.0871557, 0, 0.996195, 0.12, 0.33, 0.08)
+mesh = SubResource("BoxMesh_search_folder")
+material_override = SubResource("Material_search_top")
+
+[node name="SearchableHandle" type="MeshInstance3D" parent="SearchableInteractable"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.02, 0.39)
+mesh = SubResource("BoxMesh_search_handle")
+material_override = SubResource("Material_search_folder")
 
 [node name="SearchableLabel" type="Label3D" parent="SearchableInteractable" unique_id=1377688663]
-transform = Transform3D(1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, 0, 1.35, 0.65)
+transform = Transform3D(1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, 0, 0.98, 0.52)
 billboard = 1
-modulate = Color(0.72, 0.72, 0.72, 1)
+modulate = Color(0.86, 0.82, 0.72, 1)
 text = "SEARCH"
-font_size = 64
-outline_size = 16
+font_size = 52
+outline_size = 12
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="SearchableInteractable" unique_id=977333609]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0018167496, 0.0138094425, 0)
 shape = SubResource("BoxShape3D_searchable_body")
 
-[node name="TerminalInteractable" type="StaticBody3D" parent="." unique_id=824817303]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 1.2, 0)
+[node name="TerminalLeftInteractable" type="StaticBody3D" parent="." unique_id=1361841522]
+transform = Transform3D(0.990268, 0, 0.139173, 0, 1, 0, -0.139173, 0, 0.990268, -1.1, 1.48, -0.42)
 script = ExtResource("5_t8g5r")
 mesh_instance_path = NodePath("TerminalBody")
 panel_path = NodePath("../CanvasLayer/TerminalMiniGamePanel")
 status_label_path = NodePath("../CanvasLayer/TerminalMiniGamePanel/PanelContainer/VBoxContainer/StatusLabel")
 complete_button_path = NodePath("../CanvasLayer/TerminalMiniGamePanel/PanelContainer/VBoxContainer/ButtonRow/CompleteButton")
 close_button_path = NodePath("../CanvasLayer/TerminalMiniGamePanel/PanelContainer/VBoxContainer/ButtonRow/CloseButton")
+terminal_id = &"terminal_left"
 
-[node name="TerminalBody" type="MeshInstance3D" parent="TerminalInteractable" unique_id=52665986]
+[node name="TerminalBody" type="MeshInstance3D" parent="TerminalLeftInteractable"]
+transform = Transform3D(1, 0, 0, 0, 0.96, -0.28, 0, 0.28, 0.96, 0, 0.02, 0.02)
 mesh = SubResource("BoxMesh_terminal_body")
+material_override = SubResource("Material_terminal_body_dark")
 
-[node name="TerminalScreen" type="MeshInstance3D" parent="TerminalInteractable" unique_id=236467980]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, -0.39)
+[node name="TerminalBase" type="MeshInstance3D" parent="TerminalLeftInteractable"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.34, -0.02)
+mesh = SubResource("BoxMesh_terminal_base")
+material_override = SubResource("Material_terminal_trim")
+
+[node name="TerminalPlinth" type="MeshInstance3D" parent="TerminalLeftInteractable"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.08, -0.04)
+mesh = SubResource("BoxMesh_terminal_plinth")
+material_override = SubResource("Material_terminal_body_dark")
+
+[node name="TerminalBezel" type="MeshInstance3D" parent="TerminalLeftInteractable"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, -0.29)
+mesh = SubResource("BoxMesh_terminal_bezel")
+material_override = SubResource("Material_terminal_trim")
+
+[node name="TerminalScreen" type="MeshInstance3D" parent="TerminalLeftInteractable"]
+transform = Transform3D(1, 0, 0, 0, 0.999391, -0.0348995, 0, 0.0348995, 0.999391, 0, 0.08, -0.335)
 mesh = SubResource("BoxMesh_terminal_screen")
+material_override = SubResource("Material_terminal_screen")
 
-[node name="TerminalLabel" type="Label3D" parent="TerminalInteractable" unique_id=2096983957]
-transform = Transform3D(1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, 0, 1.4, 0.55)
+[node name="TerminalHood" type="MeshInstance3D" parent="TerminalLeftInteractable"]
+transform = Transform3D(1, 0, 0, 0, 0.984808, -0.173648, 0, 0.173648, 0.984808, 0, 0.34, -0.16)
+mesh = SubResource("BoxMesh_terminal_hood")
+material_override = SubResource("Material_terminal_body_dark")
+
+[node name="TerminalKeypad" type="MeshInstance3D" parent="TerminalLeftInteractable"]
+transform = Transform3D(1, 0, 0, 0, 0.906308, 0.422618, 0, -0.422618, 0.906308, 0, -0.2, 0.12)
+mesh = SubResource("BoxMesh_terminal_keypad")
+material_override = SubResource("Material_terminal_trim")
+
+[node name="TerminalIndicatorTop" type="MeshInstance3D" parent="TerminalLeftInteractable"]
+transform = Transform3D(1.5, 0, 0, 0, 0.6, 0, 0, 0, 1, 0.36, 0.16, -0.28)
+mesh = SubResource("BoxMesh_indicator")
+material_override = SubResource("Material_terminal_indicator")
+
+[node name="TerminalIndicatorBottom" type="MeshInstance3D" parent="TerminalLeftInteractable"]
+transform = Transform3D(1.2, 0, 0, 0, 0.45, 0, 0, 0, 1, 0.36, -0.08, -0.28)
+mesh = SubResource("BoxMesh_indicator")
+material_override = SubResource("Material_terminal_indicator")
+
+[node name="TerminalLabel" type="Label3D" parent="TerminalLeftInteractable"]
+transform = Transform3D(1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, 0, 0.98, 0.44)
 billboard = 1
-modulate = Color(0.4, 0.78, 0.95, 1)
+modulate = Color(0.56, 0.9, 0.95, 1)
 text = "TERMINAL"
-font_size = 56
-outline_size = 14
+font_size = 40
+outline_size = 10
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="TerminalInteractable" unique_id=2058152484]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TerminalLeftInteractable"]
+shape = SubResource("BoxShape3D_terminal_body")
+
+[node name="TerminalCenterInteractable" type="StaticBody3D" parent="." unique_id=1789924231]
+transform = Transform3D(0.994522, 0, -0.104528, 0, 1, 0, 0.104528, 0, 0.994522, 5.85, 1.48, -2.14)
+script = ExtResource("5_t8g5r")
+mesh_instance_path = NodePath("TerminalBody")
+panel_path = NodePath("../CanvasLayer/TerminalMiniGamePanel")
+status_label_path = NodePath("../CanvasLayer/TerminalMiniGamePanel/PanelContainer/VBoxContainer/StatusLabel")
+complete_button_path = NodePath("../CanvasLayer/TerminalMiniGamePanel/PanelContainer/VBoxContainer/ButtonRow/CompleteButton")
+close_button_path = NodePath("../CanvasLayer/TerminalMiniGamePanel/PanelContainer/VBoxContainer/ButtonRow/CloseButton")
+terminal_id = &"terminal_center"
+
+[node name="TerminalBody" type="MeshInstance3D" parent="TerminalCenterInteractable"]
+transform = Transform3D(1, 0, 0, 0, 0.96, -0.28, 0, 0.28, 0.96, 0, 0.02, 0.02)
+mesh = SubResource("BoxMesh_terminal_body")
+material_override = SubResource("Material_terminal_body_dark")
+
+[node name="TerminalBase" type="MeshInstance3D" parent="TerminalCenterInteractable"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.34, -0.02)
+mesh = SubResource("BoxMesh_terminal_base")
+material_override = SubResource("Material_terminal_trim")
+
+[node name="TerminalPlinth" type="MeshInstance3D" parent="TerminalCenterInteractable"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.08, -0.04)
+mesh = SubResource("BoxMesh_terminal_plinth")
+material_override = SubResource("Material_terminal_body_dark")
+
+[node name="TerminalBezel" type="MeshInstance3D" parent="TerminalCenterInteractable"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, -0.29)
+mesh = SubResource("BoxMesh_terminal_bezel")
+material_override = SubResource("Material_terminal_trim")
+
+[node name="TerminalScreen" type="MeshInstance3D" parent="TerminalCenterInteractable"]
+transform = Transform3D(1, 0, 0, 0, 0.999391, -0.0348995, 0, 0.0348995, 0.999391, 0, 0.08, -0.335)
+mesh = SubResource("BoxMesh_terminal_screen")
+material_override = SubResource("Material_terminal_screen")
+
+[node name="TerminalHood" type="MeshInstance3D" parent="TerminalCenterInteractable"]
+transform = Transform3D(1, 0, 0, 0, 0.984808, -0.173648, 0, 0.173648, 0.984808, 0, 0.34, -0.16)
+mesh = SubResource("BoxMesh_terminal_hood")
+material_override = SubResource("Material_terminal_body_dark")
+
+[node name="TerminalKeypad" type="MeshInstance3D" parent="TerminalCenterInteractable"]
+transform = Transform3D(1, 0, 0, 0, 0.906308, 0.422618, 0, -0.422618, 0.906308, 0, -0.2, 0.12)
+mesh = SubResource("BoxMesh_terminal_keypad")
+material_override = SubResource("Material_terminal_trim")
+
+[node name="TerminalIndicatorTop" type="MeshInstance3D" parent="TerminalCenterInteractable"]
+transform = Transform3D(1.5, 0, 0, 0, 0.6, 0, 0, 0, 1, 0.36, 0.16, -0.28)
+mesh = SubResource("BoxMesh_indicator")
+material_override = SubResource("Material_terminal_indicator")
+
+[node name="TerminalIndicatorBottom" type="MeshInstance3D" parent="TerminalCenterInteractable"]
+transform = Transform3D(1.2, 0, 0, 0, 0.45, 0, 0, 0, 1, 0.36, -0.08, -0.28)
+mesh = SubResource("BoxMesh_indicator")
+material_override = SubResource("Material_terminal_indicator")
+
+[node name="TerminalLabel" type="Label3D" parent="TerminalCenterInteractable"]
+transform = Transform3D(1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, 0, 0.98, 0.44)
+billboard = 1
+modulate = Color(0.56, 0.9, 0.95, 1)
+text = "TERMINAL"
+font_size = 40
+outline_size = 10
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TerminalCenterInteractable"]
+shape = SubResource("BoxShape3D_terminal_body")
+
+[node name="TerminalRightInteractable" type="StaticBody3D" parent="." unique_id=824817303]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 1.52, -0.08)
+script = ExtResource("5_t8g5r")
+mesh_instance_path = NodePath("TerminalBody")
+panel_path = NodePath("../CanvasLayer/TerminalMiniGamePanel")
+status_label_path = NodePath("../CanvasLayer/TerminalMiniGamePanel/PanelContainer/VBoxContainer/StatusLabel")
+complete_button_path = NodePath("../CanvasLayer/TerminalMiniGamePanel/PanelContainer/VBoxContainer/ButtonRow/CompleteButton")
+close_button_path = NodePath("../CanvasLayer/TerminalMiniGamePanel/PanelContainer/VBoxContainer/ButtonRow/CloseButton")
+terminal_id = &"terminal_right"
+
+[node name="TerminalBody" type="MeshInstance3D" parent="TerminalRightInteractable" unique_id=52665986]
+transform = Transform3D(1, 0, 0, 0, 0.96, -0.28, 0, 0.28, 0.96, 0, 0.02, 0.02)
+mesh = SubResource("BoxMesh_terminal_body")
+material_override = SubResource("Material_terminal_body_dark")
+
+[node name="TerminalBase" type="MeshInstance3D" parent="TerminalRightInteractable"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.34, -0.02)
+mesh = SubResource("BoxMesh_terminal_base")
+material_override = SubResource("Material_terminal_trim")
+
+[node name="TerminalPlinth" type="MeshInstance3D" parent="TerminalRightInteractable"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.08, -0.04)
+mesh = SubResource("BoxMesh_terminal_plinth")
+material_override = SubResource("Material_terminal_body_dark")
+
+[node name="TerminalBezel" type="MeshInstance3D" parent="TerminalRightInteractable"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, -0.29)
+mesh = SubResource("BoxMesh_terminal_bezel")
+material_override = SubResource("Material_terminal_trim")
+
+[node name="TerminalScreen" type="MeshInstance3D" parent="TerminalRightInteractable" unique_id=236467980]
+transform = Transform3D(1, 0, 0, 0, 0.999391, -0.0348995, 0, 0.0348995, 0.999391, 0, 0.08, -0.335)
+mesh = SubResource("BoxMesh_terminal_screen")
+material_override = SubResource("Material_terminal_screen")
+
+[node name="TerminalHood" type="MeshInstance3D" parent="TerminalRightInteractable"]
+transform = Transform3D(1, 0, 0, 0, 0.984808, -0.173648, 0, 0.173648, 0.984808, 0, 0.34, -0.16)
+mesh = SubResource("BoxMesh_terminal_hood")
+material_override = SubResource("Material_terminal_body_dark")
+
+[node name="TerminalKeypad" type="MeshInstance3D" parent="TerminalRightInteractable"]
+transform = Transform3D(1, 0, 0, 0, 0.906308, 0.422618, 0, -0.422618, 0.906308, 0, -0.2, 0.12)
+mesh = SubResource("BoxMesh_terminal_keypad")
+material_override = SubResource("Material_terminal_trim")
+
+[node name="TerminalIndicatorTop" type="MeshInstance3D" parent="TerminalRightInteractable"]
+transform = Transform3D(1.5, 0, 0, 0, 0.6, 0, 0, 0, 1, 0.36, 0.16, -0.28)
+mesh = SubResource("BoxMesh_indicator")
+material_override = SubResource("Material_terminal_indicator")
+
+[node name="TerminalIndicatorBottom" type="MeshInstance3D" parent="TerminalRightInteractable"]
+transform = Transform3D(1.2, 0, 0, 0, 0.45, 0, 0, 0, 1, 0.36, -0.08, -0.28)
+mesh = SubResource("BoxMesh_indicator")
+material_override = SubResource("Material_terminal_indicator")
+
+[node name="TerminalLabel" type="Label3D" parent="TerminalRightInteractable" unique_id=2096983957]
+transform = Transform3D(1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, 0, 0.98, 0.44)
+billboard = 1
+modulate = Color(0.56, 0.9, 0.95, 1)
+text = "TERMINAL"
+font_size = 46
+outline_size = 12
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TerminalRightInteractable" unique_id=2058152484]
 shape = SubResource("BoxShape3D_terminal_body")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=2082638935]
