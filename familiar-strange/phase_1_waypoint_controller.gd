@@ -1,5 +1,6 @@
 extends Node3D
 
+const GAME_STATE_SCRIPT := preload("res://game_state.gd")
 const CLICK_THRESHOLD: float = 8.0
 
 @export var camera_path: NodePath
@@ -20,6 +21,7 @@ var camera: Camera3D = null
 var previous_button: Button = null
 var next_button: Button = null
 var terminal_panel: Control = null
+var game_state: Node = null
 var waypoints: Array[Marker3D] = []
 var current_waypoint_index: int = 0
 var mouse_press_position: Vector2 = Vector2.ZERO
@@ -29,6 +31,7 @@ var is_transitioning: bool = false
 var active_tween: Tween = null
 var current_look_yaw_degrees: float = 0.0
 var current_look_pitch_degrees: float = 0.0
+var is_phase_1_active: bool = true
 
 
 func _ready() -> void:
@@ -36,6 +39,7 @@ func _ready() -> void:
 	previous_button = get_node_or_null(previous_button_path) as Button
 	next_button = get_node_or_null(next_button_path) as Button
 	terminal_panel = get_node_or_null(terminal_panel_path) as Control
+	game_state = get_node_or_null("/root/GameState")
 	waypoints = _resolve_waypoints()
 
 	if camera == null:
@@ -48,6 +52,13 @@ func _ready() -> void:
 	if next_button != null and not next_button.pressed.is_connected(_on_next_button_pressed):
 		next_button.pressed.connect(_on_next_button_pressed)
 
+	if game_state != null:
+		if game_state.has_signal("state_changed") and not game_state.state_changed.is_connected(_on_game_state_changed):
+			game_state.state_changed.connect(_on_game_state_changed)
+		_refresh_phase_state()
+	else:
+		push_warning("Phase1WaypointController: GameState autoload is missing.")
+
 	if waypoints.is_empty():
 		push_warning("Phase1WaypointController: waypoint list is empty.")
 		_update_button_states()
@@ -59,6 +70,9 @@ func _ready() -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
+	if not is_phase_1_active:
+		return
+
 	if event is InputEventMouseMotion:
 		_handle_mouse_motion(event as InputEventMouseMotion)
 		return
@@ -89,7 +103,7 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 func _on_previous_button_pressed() -> void:
-	if is_transitioning or current_waypoint_index <= 0:
+	if not is_phase_1_active or is_transitioning or current_waypoint_index <= 0:
 		return
 
 	current_waypoint_index -= 1
@@ -97,7 +111,7 @@ func _on_previous_button_pressed() -> void:
 
 
 func _on_next_button_pressed() -> void:
-	if is_transitioning or current_waypoint_index >= waypoints.size() - 1:
+	if not is_phase_1_active or is_transitioning or current_waypoint_index >= waypoints.size() - 1:
 		return
 
 	current_waypoint_index += 1
@@ -140,7 +154,7 @@ func _on_camera_transition_finished() -> void:
 
 
 func _try_interact(screen_position: Vector2) -> void:
-	if camera == null or is_transitioning:
+	if camera == null or not is_phase_1_active or is_transitioning:
 		return
 
 	var ray_origin: Vector3 = camera.project_ray_origin(screen_position)
@@ -205,7 +219,26 @@ func _reset_limited_look_offset() -> void:
 
 
 func _can_use_limited_look() -> bool:
-	return limited_look_enabled and not is_transitioning and not _is_terminal_panel_open()
+	return is_phase_1_active and limited_look_enabled and not is_transitioning and not _is_terminal_panel_open()
+
+
+func _on_game_state_changed(_previous_state: int, _new_state: int) -> void:
+	_refresh_phase_state()
+
+
+func _refresh_phase_state() -> void:
+	if game_state == null:
+		is_phase_1_active = true
+		_update_button_states()
+		return
+
+	var current_state: int = int(game_state.get("current_state"))
+	is_phase_1_active = current_state == GAME_STATE_SCRIPT.GAME_STATE.PHASE_1_2D
+	if not is_phase_1_active:
+		is_left_mouse_button_down = false
+		is_right_mouse_button_down = false
+	_reset_limited_look_offset()
+	_update_button_states()
 
 
 func _is_terminal_panel_open() -> bool:
@@ -244,7 +277,9 @@ func _resolve_waypoints() -> Array[Marker3D]:
 
 func _update_button_states() -> void:
 	if previous_button != null:
-		previous_button.disabled = is_transitioning or current_waypoint_index <= 0
+		previous_button.visible = is_phase_1_active
+		previous_button.disabled = not is_phase_1_active or is_transitioning or current_waypoint_index <= 0
 
 	if next_button != null:
-		next_button.disabled = is_transitioning or waypoints.is_empty() or current_waypoint_index >= waypoints.size() - 1
+		next_button.visible = is_phase_1_active
+		next_button.disabled = not is_phase_1_active or is_transitioning or waypoints.is_empty() or current_waypoint_index >= waypoints.size() - 1

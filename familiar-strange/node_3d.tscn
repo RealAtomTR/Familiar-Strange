@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://dmhj1p0grjp6l" path="res://caught_respawn_overlay.gd" id="4_55w1r"]
 [ext_resource type="Script" uid="uid://bn6o2pcpkdugc" path="res://terminal_interactable.gd" id="5_t8g5r"]
 [ext_resource type="Script" uid="uid://brrc32ngwcohm" path="res://phase_transition_overlay.gd" id="6_g7n3k"]
+[ext_resource type="Script" uid="uid://y8cefrhvbww0" path="res://phase_2_player_controller.gd" id="7_phase2"]
 
 [sub_resource type="StandardMaterial3D" id="Material_floor"]
 albedo_color = Color(0.06, 0.065, 0.072, 1)
@@ -160,6 +161,16 @@ terminal_panel_path = NodePath("CanvasLayer/TerminalMiniGamePanel")
 [node name="Camera3D" type="Camera3D" parent="." unique_id=1086011400]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 8)
 
+[node name="Phase2Placeholder" type="Node3D" parent="." unique_id=1588127069]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.2, 1.6, -6.5)
+script = ExtResource("7_phase2")
+camera_path = NodePath("Phase2Camera")
+phase_1_camera_path = NodePath("../Camera3D")
+movement_bounds_min = Vector3(10.2, 1.6, -8.6)
+movement_bounds_max = Vector3(14.4, 1.6, -4)
+
+[node name="Phase2Camera" type="Camera3D" parent="Phase2Placeholder" unique_id=1163797689]
+
 [node name="Waypoints" type="Node3D" parent="." unique_id=1101498359]
 
 [node name="Waypoint0" type="Marker3D" parent="Waypoints" unique_id=1753397112]
@@ -174,27 +185,27 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 1.6, 8)
 [node name="EnvironmentGreybox" type="Node3D" parent="." unique_id=2008200]
 
 [node name="Floor" type="MeshInstance3D" parent="EnvironmentGreybox" unique_id=1627268736]
-transform = Transform3D(12, 0, 0, 0, 0.15, 0, 0, 0, 10, 5, -0.15, -1)
+transform = Transform3D(26.365, 0, 0, 0, 0.15, 0, 0, 0, 26.245, 5, -0.15, -1)
 material_override = SubResource("Material_floor")
 mesh = SubResource("BoxMesh_unit")
 
 [node name="BackWall" type="MeshInstance3D" parent="EnvironmentGreybox" unique_id=817631694]
-transform = Transform3D(12, 0, 0, 0, 2.8, 0, 0, 0, 0.2, 5, 2.6, -9)
+transform = Transform3D(23.01, 0, 0, 0, 5.745, 0, 0, 0, 0.2, 5, 2.6, -9)
 material_override = SubResource("Material_wall")
 mesh = SubResource("BoxMesh_unit")
 
 [node name="LeftWall" type="MeshInstance3D" parent="EnvironmentGreybox" unique_id=2052599696]
-transform = Transform3D(0.2, 0, 0, 0, 2.8, 0, 0, 0, 8, -6.8, 2.6, -1)
+transform = Transform3D(0.2, 0, 0, 0, 5.81, 0, 0, 0, 24.165, -6.8, 2.6, -1)
 material_override = SubResource("Material_wall")
 mesh = SubResource("BoxMesh_unit")
 
 [node name="RightWall" type="MeshInstance3D" parent="EnvironmentGreybox" unique_id=590634602]
-transform = Transform3D(0.2, 0, 0, 0, 2.8, 0, 0, 0, 8, 16.8, 2.6, -1)
+transform = Transform3D(0.2, 0, 0, 0, 5.79, 0, 0, 0, 27.5, 16.8, 2.6, -1)
 material_override = SubResource("Material_wall")
 mesh = SubResource("BoxMesh_unit")
 
 [node name="CeilingBeam" type="MeshInstance3D" parent="EnvironmentGreybox" unique_id=14421727]
-transform = Transform3D(12, 0, 0, 0, 0.18, 0, 0, 0, 7, 5, 5.1, -2)
+transform = Transform3D(24.155, 0, 0, 0, 0.18, 0, 0, 0, 34.51, 5, 5.1, -2)
 material_override = SubResource("Material_wall")
 mesh = SubResource("BoxMesh_unit")
 
@@ -239,7 +250,7 @@ material_override = SubResource("Material_server")
 mesh = SubResource("BoxMesh_unit")
 
 [node name="ServerRackATopCap" type="MeshInstance3D" parent="EnvironmentGreybox" unique_id=22734124]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8, 3.52, -3.1)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8, 2.6606164, -3.1)
 material_override = SubResource("Material_server_trim")
 mesh = SubResource("BoxMesh_server_topcap")
 
@@ -289,7 +300,7 @@ material_override = SubResource("Material_server")
 mesh = SubResource("BoxMesh_unit")
 
 [node name="ServerRackBTopCap" type="MeshInstance3D" parent="EnvironmentGreybox" unique_id=344724968]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.45, 3.52, -3.4)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.45, 2.6606164, -3.4)
 material_override = SubResource("Material_server_trim")
 mesh = SubResource("BoxMesh_server_topcap")
 
@@ -334,7 +345,7 @@ material_override = SubResource("Material_server")
 mesh = SubResource("BoxMesh_unit")
 
 [node name="ServerRackCTopCap" type="MeshInstance3D" parent="EnvironmentGreybox" unique_id=643600774]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 3.52, -3.1)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 2.6606164, -3.1)
 material_override = SubResource("Material_server_trim")
 mesh = SubResource("BoxMesh_server_topcap")
 
@@ -384,7 +395,7 @@ material_override = SubResource("Material_terminal_stand")
 mesh = SubResource("BoxMesh_unit")
 
 [node name="TerminalRearPanelLeft" type="MeshInstance3D" parent="EnvironmentGreybox" unique_id=1695181225]
-transform = Transform3D(1.1883217, 0, 0.025051143, 0, 0.9, 0, -0.16700763, 0, 0.17824826, -1.2, 1.75, -0.95)
+transform = Transform3D(1.1883217, 0, 0.025051143, 0, 0.9, 0, -0.16700763, 0, 0.17824826, -1.2, 1.75, -0.80524606)
 material_override = SubResource("Material_terminal_stand")
 mesh = SubResource("BoxMesh_unit")
 
@@ -394,7 +405,7 @@ material_override = SubResource("Material_terminal_stand")
 mesh = SubResource("BoxMesh_unit")
 
 [node name="TerminalRearPanelCenter" type="MeshInstance3D" parent="EnvironmentGreybox" unique_id=1314348130]
-transform = Transform3D(1.1934264, 0, -0.01881504, 0, 0.9, 0, 0.12543361, 0, 0.17901395, 5.85, 1.75, -2.72)
+transform = Transform3D(1.1934264, 0, -0.01881504, 0, 0.9, 0, 0.12543361, 0, 0.17901395, 5.85, 1.75, -2.4699)
 material_override = SubResource("Material_terminal_stand")
 mesh = SubResource("BoxMesh_unit")
 
@@ -404,22 +415,22 @@ material_override = SubResource("Material_terminal_stand")
 mesh = SubResource("BoxMesh_unit")
 
 [node name="TerminalRearPanelRight" type="MeshInstance3D" parent="EnvironmentGreybox" unique_id=494136150]
-transform = Transform3D(1.45, 0, 0, 0, 1, 0, 0, 0, 0.2, 8, 1.8, -0.55)
+transform = Transform3D(1.45, 0, 0, 0, 1, 0, 0, 0, 0.2, 8, 1.8, -0.40524608)
 material_override = SubResource("Material_terminal_stand")
 mesh = SubResource("BoxMesh_unit")
 
 [node name="DoorFrameLeft" type="MeshInstance3D" parent="EnvironmentGreybox" unique_id=2144068093]
-transform = Transform3D(0.2, 0, 0, 0, 2.1, 0, 0, 0, 0.35, 11.4, 2.1, -7.8)
+transform = Transform3D(0.2, 0, 0, 0, 2.1, 0, 0, 0, 0.35, 11.883438, 2.1, -7.8938174)
 material_override = SubResource("Material_door")
 mesh = SubResource("BoxMesh_unit")
 
 [node name="DoorFrameRight" type="MeshInstance3D" parent="EnvironmentGreybox" unique_id=887869490]
-transform = Transform3D(0.2, 0, 0, 0, 2.1, 0, 0, 0, 0.35, 13.4, 2.1, -7.8)
+transform = Transform3D(0.2, 0, 0, 0, 2.1, 0, 0, 0, 0.35, 12.9010515, 2.1, -7.8556595)
 material_override = SubResource("Material_door")
 mesh = SubResource("BoxMesh_unit")
 
 [node name="DoorLintel" type="MeshInstance3D" parent="EnvironmentGreybox" unique_id=905461383]
-transform = Transform3D(1.2, 0, 0, 0, 0.2, 0, 0, 0, 0.35, 12.4, 3.95, -7.8)
+transform = Transform3D(1.2, 0, 0, 0, 0.2, 0, 0, 0, 0.35, 12.4, 2.785779, -7.8)
 material_override = SubResource("Material_door")
 mesh = SubResource("BoxMesh_unit")
 
@@ -431,14 +442,14 @@ mesh = SubResource("BoxMesh_unit")
 [node name="KeyLight" type="DirectionalLight3D" parent="EnvironmentGreybox" unique_id=1880171531]
 transform = Transform3D(0.88914, -0.257834, 0.378522, 0, 0.826126, 0.563488, -0.457633, -0.500983, 0.734472, 0, 4.6, 2.2)
 light_color = Color(0.69, 0.75, 0.84, 1)
-light_energy = 0.88
+light_energy = 2.545
 shadow_enabled = true
 
 [node name="SearchWarmFill" type="OmniLight3D" parent="EnvironmentGreybox" unique_id=1579836663]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.25, 2.55, 1.35)
 light_color = Color(0.88, 0.74, 0.56, 1)
-light_energy = 1.25
-omni_range = 6.4
+light_energy = 1.08
+omni_range = 5.8
 
 [node name="ServerLight" type="OmniLight3D" parent="EnvironmentGreybox" unique_id=1493956910]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.15, 3.25, -2.95)
@@ -473,13 +484,13 @@ omni_range = 5.8
 [node name="TerminalGlowRight" type="OmniLight3D" parent="EnvironmentGreybox" unique_id=36096990]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 2.15, -0.12)
 light_color = Color(0.18, 0.72, 0.82, 1)
-light_energy = 1.38
-omni_range = 7.0
+light_energy = 1.14
+omni_range = 6.2
 
 [node name="DoorRim" type="OmniLight3D" parent="EnvironmentGreybox" unique_id=1462719487]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.4, 2.4372714, -7.5560637)
 light_color = Color(0.45, 0.16, 0.14, 1)
-light_energy = 0.64
+light_energy = 3.934
 omni_range = 4.2
 
 [node name="SearchableInteractable" type="StaticBody3D" parent="." unique_id=1502475055]

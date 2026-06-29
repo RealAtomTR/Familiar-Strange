@@ -20,6 +20,9 @@ var is_completed: bool = false
 
 
 func _ready() -> void:
+	if active_terminal != null and not is_instance_valid(active_terminal):
+		active_terminal = null
+
 	mesh_instance = get_node_or_null(mesh_instance_path) as MeshInstance3D
 	panel = get_node_or_null(panel_path) as Control
 	status_label = get_node_or_null(status_label_path) as Label
