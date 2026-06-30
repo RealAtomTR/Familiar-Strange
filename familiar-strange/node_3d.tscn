@@ -7,12 +7,23 @@
 [ext_resource type="Script" uid="uid://bn6o2pcpkdugc" path="res://terminal_interactable.gd" id="5_t8g5r"]
 [ext_resource type="Script" uid="uid://brrc32ngwcohm" path="res://phase_transition_overlay.gd" id="6_g7n3k"]
 [ext_resource type="Script" uid="uid://y8cefrhvbww0" path="res://phase_2_player_controller.gd" id="7_phase2"]
+[ext_resource type="Script" path="res://phase_2_exit_placeholder.gd" id="8_exit"]
+[ext_resource type="Script" path="res://phase_2_final_placeholder_sequence.gd" id="9_final"]
+
+[sub_resource type="StandardMaterial3D" id="Material_terminal_indicator"]
+albedo_color = Color(0.2, 0.86, 0.98, 1)
+roughness = 0.16
+emission_enabled = true
+emission = Color(0.16, 0.72, 0.82, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_unit"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_phase2_exit"]
+radius = 0.85
 
 [sub_resource type="StandardMaterial3D" id="Material_floor"]
 albedo_color = Color(0.06, 0.065, 0.072, 1)
 roughness = 0.96
-
-[sub_resource type="BoxMesh" id="BoxMesh_unit"]
 
 [sub_resource type="StandardMaterial3D" id="Material_wall"]
 albedo_color = Color(0.11, 0.115, 0.125, 1)
@@ -84,6 +95,12 @@ roughness = 0.72
 albedo_color = Color(0.18, 0.08, 0.08, 1)
 roughness = 0.82
 
+[sub_resource type="StandardMaterial3D" id="Material_terminal_screen"]
+albedo_color = Color(0.16, 0.54, 0.64, 1)
+roughness = 0.18
+emission_enabled = true
+emission = Color(0.14, 0.44, 0.54, 1)
+
 [sub_resource type="StandardMaterial3D" id="Material_search_body_dark"]
 albedo_color = Color(0.2, 0.08, 0.08, 1)
 roughness = 0.88
@@ -126,12 +143,6 @@ size = Vector3(0.52, 0.34, 0.28)
 [sub_resource type="BoxMesh" id="BoxMesh_terminal_bezel"]
 size = Vector3(1.08, 0.64, 0.08)
 
-[sub_resource type="StandardMaterial3D" id="Material_terminal_screen"]
-albedo_color = Color(0.16, 0.54, 0.64, 1)
-roughness = 0.18
-emission_enabled = true
-emission = Color(0.14, 0.44, 0.54, 1)
-
 [sub_resource type="BoxMesh" id="BoxMesh_terminal_screen"]
 size = Vector3(0.95, 0.52, 0.06)
 
@@ -140,12 +151,6 @@ size = Vector3(1, 0.12, 0.34)
 
 [sub_resource type="BoxMesh" id="BoxMesh_terminal_keypad"]
 size = Vector3(0.34, 0.12, 0.18)
-
-[sub_resource type="StandardMaterial3D" id="Material_terminal_indicator"]
-albedo_color = Color(0.2, 0.86, 0.98, 1)
-roughness = 0.16
-emission_enabled = true
-emission = Color(0.16, 0.72, 0.82, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_terminal_body"]
 size = Vector3(1.35, 0.8, 0.5)
@@ -170,6 +175,44 @@ movement_bounds_min = Vector3(10.2, 1.6, -8.6)
 movement_bounds_max = Vector3(14.4, 1.6, -4)
 
 [node name="Phase2Camera" type="Camera3D" parent="Phase2Placeholder" unique_id=1163797689]
+fov = 78.0
+
+[node name="Phase2FinalPlaceholderSequence" type="Node" parent="." unique_id=1923528887]
+script = ExtResource("9_final")
+phase_2_player_path = NodePath("../Phase2Placeholder")
+camera_path = NodePath("../Phase2Placeholder/Phase2Camera")
+door_panel_path = NodePath("../EnvironmentGreybox/DoorPanel")
+final_screen_path = NodePath("../EnvironmentGreybox/FinalPlaceholderScreen")
+staging_position = Vector3(12.4, 1.6, -6.75)
+staging_rotation_degrees = Vector3(0, 0, 0)
+camera_target_position = Vector3(12.4, 1.6, -8.85)
+camera_target_rotation_degrees = Vector3(0, 0, 0)
+staging_duration = 0.55
+door_open_duration = 0.72
+camera_move_duration = 1.05
+final_camera_fov = 78.0
+
+[node name="Phase2ExitPlaceholder" type="Area3D" parent="." unique_id=163842676]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.6, 1.6, -7.8)
+script = ExtResource("8_exit")
+player_path = NodePath("../Phase2Placeholder")
+completion_label_path = NodePath("../CanvasLayer/Phase2CompletionLabel")
+
+[node name="ExitMarker" type="MeshInstance3D" parent="Phase2ExitPlaceholder" unique_id=165128239]
+transform = Transform3D(0.28, 0, 0, 0, 0.9, 0, 0, 0, 0.28, 0, 0, 0)
+material_override = SubResource("Material_terminal_indicator")
+mesh = SubResource("BoxMesh_unit")
+
+[node name="ExitLabel" type="Label3D" parent="Phase2ExitPlaceholder" unique_id=910362801]
+transform = Transform3D(1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, 0, 0.95, 0)
+billboard = 1
+modulate = Color(0.56, 0.9, 0.95, 1)
+text = "EXIT"
+font_size = 36
+outline_size = 8
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Phase2ExitPlaceholder" unique_id=1402778381]
+shape = SubResource("SphereShape3D_phase2_exit")
 
 [node name="Waypoints" type="Node3D" parent="." unique_id=1101498359]
 
@@ -190,7 +233,7 @@ material_override = SubResource("Material_floor")
 mesh = SubResource("BoxMesh_unit")
 
 [node name="BackWall" type="MeshInstance3D" parent="EnvironmentGreybox" unique_id=817631694]
-transform = Transform3D(23.01, 0, 0, 0, 5.745, 0, 0, 0, 0.2, 5, 2.6, -9)
+transform = Transform3D(11.93, 0, 0, 0, 5.745, 0, 0, 0, 0.2, 5, 2.6, -9)
 material_override = SubResource("Material_wall")
 mesh = SubResource("BoxMesh_unit")
 
@@ -420,24 +463,42 @@ material_override = SubResource("Material_terminal_stand")
 mesh = SubResource("BoxMesh_unit")
 
 [node name="DoorFrameLeft" type="MeshInstance3D" parent="EnvironmentGreybox" unique_id=2144068093]
-transform = Transform3D(0.2, 0, 0, 0, 2.1, 0, 0, 0, 0.35, 11.883438, 2.1, -7.8938174)
+transform = Transform3D(0.2, 0, 0, 0, 2.1, 0, 0, 0, 0.35, 11.573141, 2.1, -7.8938174)
 material_override = SubResource("Material_door")
 mesh = SubResource("BoxMesh_unit")
 
 [node name="DoorFrameRight" type="MeshInstance3D" parent="EnvironmentGreybox" unique_id=887869490]
-transform = Transform3D(0.2, 0, 0, 0, 2.1, 0, 0, 0, 0.35, 12.9010515, 2.1, -7.8556595)
+transform = Transform3D(0.2, 0, 0, 0, 2.1, 0, 0, 0, 0.35, 13.350474, 2.1, -7.8556595)
 material_override = SubResource("Material_door")
 mesh = SubResource("BoxMesh_unit")
 
 [node name="DoorLintel" type="MeshInstance3D" parent="EnvironmentGreybox" unique_id=905461383]
-transform = Transform3D(1.2, 0, 0, 0, 0.2, 0, 0, 0, 0.35, 12.4, 2.785779, -7.8)
+transform = Transform3D(1.2, 0, 0, 0, 0.2, 0, 0, 0, 0.35, 12.4, 3.026045, -7.8)
 material_override = SubResource("Material_door")
 mesh = SubResource("BoxMesh_unit")
 
 [node name="DoorPanel" type="MeshInstance3D" parent="EnvironmentGreybox" unique_id=1168298625]
-transform = Transform3D(0.95, 0, 0, 0, 1.8, 0, 0, 0, 0.1, 12.4, 1.8, -8.05)
+transform = Transform3D(0.95, 0, 0, 0, 1.8, 0, 0, 0, 0.1, 12.399856, 1.8220639, -8.047801)
 material_override = SubResource("Material_door")
 mesh = SubResource("BoxMesh_unit")
+
+[node name="FinalPlaceholderScreen" type="Node3D" parent="EnvironmentGreybox" unique_id=632153471]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.4, 1.9, -9.7)
+visible = false
+
+[node name="ScreenPanel" type="MeshInstance3D" parent="EnvironmentGreybox/FinalPlaceholderScreen" unique_id=609763263]
+transform = Transform3D(1.65, 0, 0, 0, 0.9, 0, 0, 0, 0.06, 0, 0, 0)
+material_override = SubResource("Material_terminal_screen")
+mesh = SubResource("BoxMesh_unit")
+
+[node name="ScreenText" type="Label3D" parent="EnvironmentGreybox/FinalPlaceholderScreen" unique_id=553198534]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.04, 0.08)
+modulate = Color(0.86, 0.96, 1, 1)
+text = "FINAL PLACEHOLDER
+SEQUENCE COMPLETE
+END OF CURRENT BUILD"
+font_size = 22
+outline_size = 5
 
 [node name="KeyLight" type="DirectionalLight3D" parent="EnvironmentGreybox" unique_id=1880171531]
 transform = Transform3D(0.88914, -0.257834, 0.378522, 0, 0.826126, 0.563488, -0.457633, -0.500983, 0.734472, 0, 4.6, 2.2)
@@ -843,6 +904,20 @@ custom_minimum_size = Vector2(120, 44)
 layout_mode = 2
 text = "Complete"
 
+[node name="Phase2CompletionLabel" type="Label" parent="CanvasLayer" unique_id=1177554616]
+visible = false
+z_index = 8
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -180.0
+offset_top = 48.0
+offset_right = 180.0
+offset_bottom = 84.0
+grow_horizontal = 2
+text = "PHASE 2 PLACEHOLDER COMPLETE"
+horizontal_alignment = 1
+
 [node name="PhaseTransitionOverlay" type="ColorRect" parent="CanvasLayer" unique_id=1921218770]
 z_index = 9
 anchors_preset = 15
@@ -858,3 +933,13 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 color = Color(0, 0, 0, 0)
 script = ExtResource("4_55w1r")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=672050567]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.604868, 2.6845994, -11.003739)
+light_energy = 3.729
+light_indirect_energy = 1.32
+light_size = 0.105
+
+
+
+

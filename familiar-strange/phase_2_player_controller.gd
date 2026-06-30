@@ -16,6 +16,7 @@ var phase_1_camera: Camera3D = null
 var game_state: Node = null
 var is_phase_2_active: bool = false
 var is_mouse_capture_requested: bool = false
+var is_sequence_locked: bool = false
 var pitch_degrees: float = 0.0
 
 
@@ -38,7 +39,7 @@ func _exit_tree() -> void:
 
 
 func _physics_process(delta: float) -> void:
-	if not is_phase_2_active:
+	if not is_phase_2_active or is_sequence_locked:
 		return
 
 	var movement_input: Vector3 = _get_movement_input()
@@ -59,7 +60,7 @@ func _physics_process(delta: float) -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if not is_phase_2_active:
+	if not is_phase_2_active or is_sequence_locked:
 		return
 
 	if event is InputEventKey:
@@ -93,6 +94,20 @@ func is_active() -> bool:
 
 func is_mouse_captured() -> bool:
 	return is_mouse_capture_requested
+
+
+func set_sequence_locked(locked: bool) -> void:
+	is_sequence_locked = locked
+	if is_sequence_locked:
+		_release_mouse()
+		return
+
+	if is_phase_2_active:
+		_capture_mouse()
+
+
+func get_sequence_locked() -> bool:
+	return is_sequence_locked
 
 
 func _get_movement_input() -> Vector3:
@@ -133,7 +148,7 @@ func _apply_camera_state() -> void:
 	if phase_1_camera != null:
 		phase_1_camera.current = not is_phase_2_active
 
-	if is_phase_2_active:
+	if is_phase_2_active and not is_sequence_locked:
 		_capture_mouse()
 		_apply_camera_pitch()
 	else:

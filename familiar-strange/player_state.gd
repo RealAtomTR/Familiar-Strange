@@ -35,6 +35,7 @@ func reset_state() -> void:
 	noise_level = 0.0
 	is_caught = false
 	_reset_phase_1_progress()
+	_reset_phase_2_exit_placeholder_completion()
 	_change_game_state(GAME_STATE_SCRIPT.GAME_STATE.PHASE_1_2D)
 	noise_generated.emit(noise_level, detection_level)
 
@@ -61,3 +62,13 @@ func _reset_phase_1_progress() -> void:
 
 	if game_state.has_method("reset_phase_1_progress"):
 		game_state.call("reset_phase_1_progress")
+
+
+func _reset_phase_2_exit_placeholder_completion() -> void:
+	var game_state: Node = get_node_or_null("/root/GameState")
+	if game_state == null:
+		push_warning("PlayerState: GameState autoload is missing.")
+		return
+
+	if game_state.has_method("reset_phase_2_exit_placeholder_completion"):
+		game_state.call("reset_phase_2_exit_placeholder_completion")
